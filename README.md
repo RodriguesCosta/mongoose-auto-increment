@@ -1,8 +1,6 @@
 # mongoose-auto-increment-create-update
 
-[![Build Status](https://travis-ci.org/codetunnel/mongoose-auto-increment.png?branch=master)](https://travis-ci.org/codetunnel/mongoose-auto-increment)
-[![Dependencies Status](https://gemnasium.com/codetunnel/mongoose-auto-increment.png)](https://gemnasium.com/codetunnel/mongoose-auto-increment)
-[![NPM version](https://badge.fury.io/js/mongoose-auto-increment.png)](http://badge.fury.io/js/mongoose-auto-increment)
+### This NPM package is a fork for the package referenced in the repository, the only difference is that it also adds auto increment to existing collection documents.
 
 > Mongoose plugin that auto-increments any ID field on your schema every time a document is saved.
 
@@ -22,7 +20,7 @@ mongoose connection and pass `autoIncrement.plugin` to the `plugin()` function o
 ````js
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    autoIncrement = require('mongoose-auto-increment');
+    autoIncrement = require('mongoose-auto-increment-create-update');
 
 var connection = mongoose.createConnection("mongodb://localhost/myDatabase");
 
