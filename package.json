@@ -4,8 +4,9 @@
   "description": "This plugin allows you to auto-increment any field on any mongoose schema that you wish.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/codetunnel/mongoose-auto-increment.git"
+    "url": "git://github.com/RodriguesCosta/mongoose-auto-increment-create-update.git"
   },
+  "license": "MIT",
   "dependencies": {
     "extend": "^3.0.0"
   },
