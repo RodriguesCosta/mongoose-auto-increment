@@ -1,8 +1,8 @@
 // Module Scope
 var mongoose = require('mongoose'),
-extend = require('extend'),
-counterSchema,
-IdentityCounter;
+  extend = require('extend'),
+  counterSchema,
+  IdentityCounter;
 
 // Initialize plugin by creating counter collection in database.
 exports.initialize = function (connection) {
@@ -28,6 +28,9 @@ exports.initialize = function (connection) {
   }
 };
 
+// Exports the schema to be used the way the user prefers
+exports.counterSchema;
+
 // The function to use when invoking the plugin on a custom schema.
 exports.plugin = function (schema, options) {
 
@@ -43,18 +46,18 @@ exports.plugin = function (schema, options) {
     incrementBy: 1, // The number by which to increment the count each time.
     unique: true // Should we create a unique index for the field
   },
-  fields = {}, // A hash of fields to add properties to in Mongoose.
-  ready = false; // True if the counter collection has been updated and the document is ready to be saved.
+    fields = {}, // A hash of fields to add properties to in Mongoose.
+    ready = false; // True if the counter collection has been updated and the document is ready to be saved.
 
-  switch (typeof(options)) {
+  switch (typeof (options)) {
     // If string, the user chose to pass in just the model name.
     case 'string':
       settings.model = options;
-    break;
+      break;
     // If object, the user passed in a hash of options.
     case 'object':
       extend(settings, options);
-    break;
+      break;
   }
 
   if (settings.model == null)
@@ -100,6 +103,21 @@ exports.plugin = function (schema, options) {
   schema.method('nextCount', nextCount);
   schema.static('nextCount', nextCount);
 
+  var nextCountUpdate = function (callback) {
+    IdentityCounter.findOneAndUpdate(
+      { model: settings.model, field: settings.field },
+      { $inc: { count: settings.incrementBy } },
+      { new: true },
+      function (err, updatedIdentityCounter) {
+        if (err) return callback(err);
+        callback(null, updatedIdentityCounter.count);
+      }
+    )
+  };
+  // Add nextCountUpdate as both a method on documents and a static on the schema for convenience.
+  schema.method('nextCountUpdate', nextCountUpdate);
+  schema.static('nextCountUpdate', nextCountUpdate);
+
   // Declare a function to reset counter at the start value - increment value.
   var resetCount = function (callback) {
     IdentityCounter.findOneAndUpdate(
@@ -122,7 +140,7 @@ exports.plugin = function (schema, options) {
     var doc = this;
 
     // Only do this if it is a new document (see http://mongoosejs.com/docs/api.html#document_Document-isNew)
-    if (doc.isNew) {
+    if (doc.isNew || !doc[settings.field]) {
       // Declare self-invoking save function.
       (function save() {
         // If ready, run increment logic.
