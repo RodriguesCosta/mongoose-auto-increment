@@ -1,4 +1,4 @@
-# mongoose-auto-increment
+# mongoose-auto-increment-create-update
 
 [![Build Status](https://travis-ci.org/codetunnel/mongoose-auto-increment.png?branch=master)](https://travis-ci.org/codetunnel/mongoose-auto-increment)
 [![Dependencies Status](https://gemnasium.com/codetunnel/mongoose-auto-increment.png)](https://gemnasium.com/codetunnel/mongoose-auto-increment)
