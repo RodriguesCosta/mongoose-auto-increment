@@ -36,7 +36,7 @@ exports.plugin = function (schema, options) {
 
   // If we don't have reference to the counterSchema or the IdentityCounter model then the plugin was most likely not
   // initialized properly so throw an error.
-  if (!counterSchema || !IdentityCounter) throw new Error("mongoose-auto-increment has not been initialized");
+  if (!counterSchema || !IdentityCounter) throw new Error("mongoose-auto-increment-create-update has not been initialized");
 
   // Default settings and plugin scope variables.
   var settings = {
